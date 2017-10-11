@@ -1,4 +1,7 @@
-public class GenerateurImpl implements Generateur {
+public class GenerateurImpl implements Generateur{
+
+    private Integer value;
+
     @Override
     public void attach() {
 
@@ -11,6 +14,6 @@ public class GenerateurImpl implements Generateur {
 
     @Override
     public int getValue() {
-        return 0;
+        return this.value;
     }
 }
