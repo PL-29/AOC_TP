@@ -1,6 +1,4 @@
-package algorithme;
-
 public interface AlgoDiffusion {
-    void configure();
+    void configure(GenerateurImpl generateur);
     void execute();
 }

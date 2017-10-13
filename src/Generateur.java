@@ -1,7 +1,10 @@
-public interface Generateur {
+public interface Generateur extends Subject {
 
-    void attach();
-    void detach();
+//    // Add observer
+//    void attach();
+//
+//    //
+//    void detach();
     int getValue();
 
 }
