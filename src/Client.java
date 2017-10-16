@@ -22,12 +22,7 @@ public class Client {
 
         g.attach(canal1);
         g.attach(canal2);
-        // Changement de valeur
-        try {
-            for (int i = 0; i < 10; i++) {
-//                Thread.sleep(2000); // 2 secondes
-                g.setValue(i);
-            }
-        } catch (Exception e) { }
+
+        g.start();
     }
 }

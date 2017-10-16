@@ -2,7 +2,8 @@ public class Afficheur implements ObservateurGenerateur{
 
     public void update(Generateur canalGenerateur){
 
-        int value = canalGenerateur.getValue();
+        //TODO: Demander comment virer le this, inutile ici
+        int value = canalGenerateur.getValue(this);
         System.out.println("Afficheur " + value);
     }
 }

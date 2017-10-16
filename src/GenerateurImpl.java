@@ -1,16 +1,14 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenerateurImpl implements Generateur{
-
+public class GenerateurImpl implements Generateur {
 
     private AlgoDiffusion algo;
 
     private Integer value;
 
-    // Liste des canaux (Observeur) Obbserve la modification du générateur
+    // Liste des canaux (Observeur) Observe la modification du générateur
     private List<ObservateurGenerateur> canauxObservers = new ArrayList<>();
-
 
     public GenerateurImpl(AlgoDiffusion algo){
         this.algo = algo;
@@ -27,7 +25,15 @@ public class GenerateurImpl implements Generateur{
     }
 
     @Override
-    public int getValue() {
+    public int getValue(ObservateurGenerateur oCanal) {
+        //TODO : Rajouter switch pour chaque algo
+//        switch(algo.getClass()){
+//            case DiffusionAtomique.class :
+//                break;
+//        }
+        if(algo.getClass() == DiffusionAtomique.class){
+            ((DiffusionAtomique)algo).addAfficheurs(oCanal);
+        }
         return this.value;
     }
 
@@ -40,5 +46,14 @@ public class GenerateurImpl implements Generateur{
         this.value = value;
         algo.configure(this);
         algo.execute();
+    }
+
+    public void start(){
+        for(int i = 0 ; i < 10 ; i++){
+            this.setValue(i);
+        }
+    }
+
+    public void stop(){
     }
 }
