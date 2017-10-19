@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 public class GenerateurImpl implements Generateur {
@@ -8,7 +10,7 @@ public class GenerateurImpl implements Generateur {
     private Integer value;
 
     // Liste des canaux (Observeur) Observe la modification du générateur
-    private List<ObservateurGenerateur> canauxObservers = new ArrayList<>();
+    private List<ObservateurGenerateur> canauxObservers = new LinkedList<>();
 
     public GenerateurImpl(AlgoDiffusion algo){
         this.algo = algo;
@@ -31,26 +33,30 @@ public class GenerateurImpl implements Generateur {
 //            case DiffusionAtomique.class :
 //                break;
 //        }
-        if(algo.getClass() == DiffusionAtomique.class){
-            ((DiffusionAtomique)algo).addAfficheurs(oCanal);
-        }
+//        if(algo.getClass() == DiffusionAtomique.class){
+//        }
+
+        ((DiffusionAtomique) algo).removeCanaux(oCanal);
         return this.value;
     }
 
-    public List<ObservateurGenerateur> getCanauxObservers(){
-        return this.canauxObservers;
+    public LinkedList<ObservateurGenerateur> getCanauxObservers(){
+        return new LinkedList<>(this.canauxObservers);
     }
 
     // Simule le changement de valeur
     public void setValue(int value){
         this.value = value;
-        algo.configure(this);
         algo.execute();
     }
 
     public void start(){
+        algo.configure(this);
         for(int i = 0 ; i < 10 ; i++){
-            this.setValue(i);
+            // Set value que si tout le monde a lu
+            if(((DiffusionAtomique) algo).allReading()) {
+                this.setValue(i);
+            }
         }
     }
 

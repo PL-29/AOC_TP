@@ -1,20 +1,22 @@
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 public class DiffusionAtomique implements AlgoDiffusion {
 
     private GenerateurImpl generateur;
-    private Set<ObservateurGenerateur> afficheurs;
+    private LinkedList<ObservateurGenerateur> canaux;
 
     @Override
     public void configure(GenerateurImpl generateur) {
-        this.afficheurs = new HashSet<>();
         this.generateur = generateur;
+        this.canaux = new LinkedList<>();
     }
 
     @Override
     public void execute() {
-        // update
+        this.canaux = generateur.getCanauxObservers();
         System.out.println("Diffusion execute ");
         for (ObservateurGenerateur o : generateur.getCanauxObservers())
         {
@@ -22,7 +24,11 @@ public class DiffusionAtomique implements AlgoDiffusion {
         }
     }
 
-    public void addAfficheurs(ObservateurGenerateur oAfficheur){
-        afficheurs.add(oAfficheur);
+    public boolean allReading (){
+        return canaux.isEmpty();
+    }
+
+    public void removeCanaux(ObservateurGenerateur canal){
+        this.canaux.remove(canal);
     }
 }
