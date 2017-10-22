@@ -16,10 +16,17 @@ public class GenerateurImpl implements Generateur {
 
     private Integer value;
 
+    private boolean stop;
+
     // Liste des canaux (Observeur) Observe la modification du générateur
     private List<ObservateurGenerateur> canauxObservers = new LinkedList<>();
 
+    public GenerateurImpl(){}
     public GenerateurImpl(AlgoDiffusion algo){
+        this.algo = algo;
+    }
+
+    public void setAlgo(AlgoDiffusion algo) {
         this.algo = algo;
     }
 
@@ -69,8 +76,10 @@ public class GenerateurImpl implements Generateur {
     }
 
     public void start(){
+        this.stop = false;
         algo.configure(this);
-        for(int i = 0 ; i < 10 ; i++){
+
+        for(int i = 0 ; i < 30 && !stop; i++){
             // DiffusionAtomique - Set value que si tout le monde a lu
             if(algo instanceof DiffusionAtomique && ((DiffusionAtomique) algo).allReading()){
                 this.setValue(i);
@@ -80,8 +89,14 @@ public class GenerateurImpl implements Generateur {
             if(algo instanceof DiffusionSequentielle || algo instanceof DiffusionEpoque){
                 this.setValue(i);
             }
+
+            // Wait
+            try { Thread.sleep(1000); }
+            catch(InterruptedException ex) { Thread.currentThread().interrupt(); }
         }
     }
 
-    public void stop(){}
+    public void stop(){
+        this.stop = true;
+    }
 }

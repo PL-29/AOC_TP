@@ -60,11 +60,14 @@ public class Controller implements Initializable {
         canal1.attach(afficheur1);
         canal2.attach(afficheur2);
 
+        // Création du générateur
+        GenerateurImpl generateur = new GenerateurImpl();
 
         // ------------------ STOP ------------------
         boutonArreter.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-
+                System.out.println("Algorithme arrêté");
+                generateur.stop();
             }
         });
 
@@ -97,13 +100,13 @@ public class Controller implements Initializable {
                         System.out.println("radioBtnDiffusion");
                 }
 
-                GenerateurImpl g = new GenerateurImpl(algorithme);
+                generateur.setAlgo(algorithme);
 
-                g.attach(canal1);
-                g.attach(canal2);
+                generateur.attach(canal1);
+                generateur.attach(canal2);
 
                 System.out.println("Lancement de l'algorithme");
-                g.start();
+                generateur.start();
             }
         });
     }
