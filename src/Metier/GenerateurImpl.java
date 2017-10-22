@@ -2,8 +2,11 @@ package Metier;
 
 import Metier.Algorithmes.AlgoDiffusion;
 import Metier.Algorithmes.DiffusionAtomique;
+import Metier.Algorithmes.DiffusionEpoque;
 import Metier.Algorithmes.DiffusionSequentielle;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,23 +37,24 @@ public class GenerateurImpl implements Generateur {
     public LinkedList<ObservateurGenerateur> getCanauxObservers(){ return new LinkedList<>(this.canauxObservers); }
 
     @Override
-    public int getValue(ObservateurGenerateur oCanal) {
+    public String getValue(ObservateurGenerateur oCanal) {
 
         // Diffusion atomique on supprime le canaux qui a lu
         if(algo instanceof DiffusionAtomique){
             ((DiffusionAtomique) algo).removeCanaux(oCanal);
-            return this.value;
+            return Integer.toString(this.value);
         }
 
         // Diffusion séquentielle on supprime le canaux qui a lu et on recupere la copie de la valeur
         else if(algo instanceof DiffusionSequentielle){
             ((DiffusionSequentielle) algo).removeCanaux(oCanal);
-            return ((DiffusionSequentielle) algo).getCopyValue();
+            return Integer.toString(((DiffusionSequentielle) algo).getCopyValue());
         }
 
         // Diffusion Epoque
         else {
-            return this.value;
+            Date date = new Date();
+            return this.value + "-" + date.getTime();
         }
     }
 
@@ -73,7 +77,7 @@ public class GenerateurImpl implements Generateur {
             }
 
             // DiffusionSequentielle - On set la value tout le temps
-            if(algo instanceof DiffusionSequentielle){
+            if(algo instanceof DiffusionSequentielle || algo instanceof DiffusionEpoque){
                 this.setValue(i);
             }
         }

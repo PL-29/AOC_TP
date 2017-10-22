@@ -24,7 +24,7 @@ public class Canal implements ObservateurGenerateur, Generateur{
         this.observerAfficheur.update(this);
     }
 
-    public int getValue(ObservateurGenerateur oAfficheur){
+    public String getValue(ObservateurGenerateur oAfficheur){
         return this.generateur.getValue(this);
     }
 

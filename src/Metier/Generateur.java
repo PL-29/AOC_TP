@@ -7,6 +7,6 @@ public interface Generateur extends Subject {
 //
 //    //
 //    void detach();
-    int getValue(ObservateurGenerateur oAfficheur);
+    String getValue(ObservateurGenerateur oAfficheur);
 
 }
