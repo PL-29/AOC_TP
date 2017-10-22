@@ -3,6 +3,7 @@ package UI;
 import Metier.*;
 import Metier.Algorithmes.AlgoDiffusion;
 import Metier.Algorithmes.DiffusionAtomique;
+import Metier.Algorithmes.DiffusionSequentielle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -58,7 +59,8 @@ public class Controller implements Initializable {
             @Override public void handle(ActionEvent e) {
                 Toggle toggle = choixAlgorithme.getSelectedToggle();
                 // Choisi l'algo - TODO get the algo selected in the ihm
-                AlgoDiffusion algo = new DiffusionAtomique();
+                //AlgoDiffusion algo = new DiffusionAtomique();
+                AlgoDiffusion algo = new DiffusionSequentielle();
 
                 GenerateurImpl g = new GenerateurImpl(algo);
                 g.attach(canal1);

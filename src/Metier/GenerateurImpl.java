@@ -2,6 +2,7 @@ package Metier;
 
 import Metier.Algorithmes.AlgoDiffusion;
 import Metier.Algorithmes.DiffusionAtomique;
+import Metier.Algorithmes.DiffusionSequentielle;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -29,24 +30,32 @@ public class GenerateurImpl implements Generateur {
         this.canauxObservers.remove(o);
     }
 
+    // Retourne une copie de la liste des cannaux
+    public LinkedList<ObservateurGenerateur> getCanauxObservers(){ return new LinkedList<>(this.canauxObservers); }
+
     @Override
     public int getValue(ObservateurGenerateur oCanal) {
-        //TODO : Rajouter switch pour chaque algo
-//        switch(algo.getClass()){
-//            case DiffusionAtomique.class :
-//                break;
-//        }
-//        if(algo.getClass() == DiffusionAtomique.class){
-//        }
 
-        ((DiffusionAtomique) algo).removeCanaux(oCanal);
-        return this.value;
+        // Diffusion atomique on supprime le canaux qui a lu
+        if(algo instanceof DiffusionAtomique){
+            ((DiffusionAtomique) algo).removeCanaux(oCanal);
+            return this.value;
+        }
+
+        // Diffusion séquentielle on supprime le canaux qui a lu et on recupere la copie de la valeur
+        else if(algo instanceof DiffusionSequentielle){
+            ((DiffusionSequentielle) algo).removeCanaux(oCanal);
+            return ((DiffusionSequentielle) algo).getCopyValue();
+        }
+
+        // Diffusion Epoque
+        else {
+            return this.value;
+        }
     }
 
-    // Retourne une copie de la liste des cannaux
-    public LinkedList<ObservateurGenerateur> getCanauxObservers(){
-
-        return new LinkedList<>(this.canauxObservers);
+    public int getValue(){
+        return this.value;
     }
 
     // Simule le changement de valeur
@@ -58,13 +67,17 @@ public class GenerateurImpl implements Generateur {
     public void start(){
         algo.configure(this);
         for(int i = 0 ; i < 10 ; i++){
-            // Set value que si tout le monde a lu
-            if(((DiffusionAtomique) algo).allReading()) {
+            // DiffusionAtomique - Set value que si tout le monde a lu
+            if(algo instanceof DiffusionAtomique && ((DiffusionAtomique) algo).allReading()){
+                this.setValue(i);
+            }
+
+            // DiffusionSequentielle - On set la value tout le temps
+            if(algo instanceof DiffusionSequentielle){
                 this.setValue(i);
             }
         }
     }
 
-    public void stop(){
-    }
+    public void stop(){}
 }
