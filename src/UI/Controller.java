@@ -9,10 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,6 +37,14 @@ public class Controller implements Initializable {
     @FXML
     private ToggleGroup choixAlgorithme;
 
+    @FXML
+    private RadioButton radioBtnSequentielle;
+
+    @FXML
+    private RadioButton radioBtnDiffusion;
+
+    @FXML
+    private RadioButton radioBtnEpoque;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -55,16 +60,45 @@ public class Controller implements Initializable {
         canal1.attach(afficheur1);
         canal2.attach(afficheur2);
 
+
+        // ------------------ STOP ------------------
+        boutonArreter.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+
+            }
+        });
+
         // ------------------ START ------------------
         boutonDemarrer.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                Toggle toggle = choixAlgorithme.getSelectedToggle();
-                // Choisi l'algo - TODO get the algo selected in the ihm
-                //AlgoDiffusion algo = new DiffusionAtomique();
-                //AlgoDiffusion algo = new DiffusionSequentielle();
-                AlgoDiffusion algo = new DiffusionEpoque();
 
-                GenerateurImpl g = new GenerateurImpl(algo);
+                // Disabled radio button
+                radioBtnSequentielle.setDisable(true);
+                radioBtnDiffusion.setDisable(true);
+                radioBtnEpoque.setDisable(true);
+
+                RadioButton selectedRadioButton = (RadioButton) choixAlgorithme.getSelectedToggle();
+                String selectedRadioButtonID = selectedRadioButton.getId();
+
+                AlgoDiffusion algorithme;
+
+                switch (selectedRadioButtonID){
+                    case "radioBtnSequentielle" :
+                        algorithme = new DiffusionSequentielle();
+                        System.out.println("radioBtnSequentielle");
+                        break;
+                    case "radioBtnEpoque" :
+                        algorithme = new DiffusionEpoque();
+                        System.out.println("radioBtnEpoque");
+                        break;
+                    case "radioBtnDiffusion" :
+                    default:
+                        algorithme = new DiffusionAtomique();
+                        System.out.println("radioBtnDiffusion");
+                }
+
+                GenerateurImpl g = new GenerateurImpl(algorithme);
+
                 g.attach(canal1);
                 g.attach(canal2);
 

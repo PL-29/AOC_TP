@@ -20,7 +20,7 @@
                <toggleGroup>
                   <ToggleGroup fx:id="choixAlgorithme" />
                </toggleGroup></RadioButton>
-            <RadioButton fx:id="radioBtnDSequence" layoutX="43.0" layoutY="120.0" mnemonicParsing="false" text="Séquence" toggleGroup="$choixAlgorithme" />
+            <RadioButton fx:id="radioBtnSequentielle" layoutX="43.0" layoutY="120.0" mnemonicParsing="false" text="Séquence" toggleGroup="$choixAlgorithme" />
             <RadioButton fx:id="radioBtnEpoque" layoutX="43.0" layoutY="160.0" mnemonicParsing="false" text="Epoque" toggleGroup="$choixAlgorithme" />
          </children>
       </Pane>
