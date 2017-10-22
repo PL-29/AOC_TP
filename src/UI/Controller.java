@@ -1,5 +1,8 @@
 package UI;
 
+import Metier.*;
+import Metier.Algorithmes.AlgoDiffusion;
+import Metier.Algorithmes.DiffusionAtomique;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -39,10 +42,30 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        // Création des canaux
+        Canal canal1 = new Canal();
+        Canal canal2 = new Canal();
+
+        // Création des afficheurs
+        Afficheur afficheur1 = new Afficheur();
+        Afficheur afficheur2 = new Afficheur();
+
+        canal1.attach(afficheur1);
+        canal2.attach(afficheur2);
+
+        // ------------------ START ------------------
         boutonDemarrer.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 Toggle toggle = choixAlgorithme.getSelectedToggle();
+                // Choisi l'algo - TODO get the algo selected in the ihm
+                AlgoDiffusion algo = new DiffusionAtomique();
+
+                GenerateurImpl g = new GenerateurImpl(algo);
+                g.attach(canal1);
+                g.attach(canal2);
+
                 System.out.println("Lancement de l'algorithme");
+                g.start();
             }
         });
     }

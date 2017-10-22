@@ -1,7 +1,10 @@
-import java.util.HashSet;
+package Metier.Algorithmes;
+
+import Metier.Algorithmes.AlgoDiffusion;
+import Metier.GenerateurImpl;
+import Metier.ObservateurGenerateur;
+
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
 
 public class DiffusionAtomique implements AlgoDiffusion {
 

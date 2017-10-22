@@ -1,5 +1,8 @@
-import java.util.ArrayList;
-import java.util.Collection;
+package Metier;
+
+import Metier.Algorithmes.AlgoDiffusion;
+import Metier.Algorithmes.DiffusionAtomique;
+
 import java.util.LinkedList;
 import java.util.List;
 

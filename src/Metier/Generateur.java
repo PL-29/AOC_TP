@@ -1,3 +1,5 @@
+package Metier;
+
 public interface Generateur extends Subject {
 
 //    // Add observer

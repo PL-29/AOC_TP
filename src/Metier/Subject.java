@@ -1,3 +1,5 @@
+package Metier;
+
 public interface Subject {
 
     void attach(ObservateurGenerateur o);
