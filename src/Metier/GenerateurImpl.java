@@ -43,7 +43,9 @@ public class GenerateurImpl implements Generateur {
         return this.value;
     }
 
+    // Retourne une copie de la liste des cannaux
     public LinkedList<ObservateurGenerateur> getCanauxObservers(){
+
         return new LinkedList<>(this.canauxObservers);
     }
 
