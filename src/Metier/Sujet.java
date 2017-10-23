@@ -1,6 +1,6 @@
 package Metier;
 
-public interface Subject {
+public interface Sujet {
 
     void attach(ObservateurGenerateur o);
     void detach(ObservateurGenerateur o);

@@ -1,6 +1,6 @@
 package Metier;
 
-public interface Generateur extends Subject {
+public interface Generateur extends Sujet {
 
 //    // Add observer
 //    void attach();

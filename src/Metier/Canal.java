@@ -1,6 +1,8 @@
 package Metier;
 
-public class Canal implements ObservateurGenerateur, Generateur{
+import java.util.concurrent.*;
+
+public class Canal implements ObservateurGenerateur, GenerateurAsync{
 
     // Proxy
     // private Afficheur afficheur;
@@ -21,11 +23,16 @@ public class Canal implements ObservateurGenerateur, Generateur{
         this.generateur = (GenerateurImpl) generateur;
 
         // TODO appeler la méthode update(subject:Generateur) de la classe Afficheur
-        this.observerAfficheur.update(this);
+        this.observerAfficheur.update(generateur);
     }
 
-    public String getValue(ObservateurGenerateur oAfficheur){
-        return this.generateur.getValue(this);
+
+    public Future<String> getValue(){
+        Callable methodeInvocation = new GetValue(generateur, this);
+        ScheduledExecutorService scheduler = (ScheduledExecutorService)Executors.newCachedThreadPool();
+        //scheduler.schedule(methodeInvocation, 1000, TimeUnit.MILLISECONDS);
+        return scheduler.submit(methodeInvocation);
+        //return this.generateur.getValue(this);
     }
 
     public void attach(ObservateurGenerateur o){
