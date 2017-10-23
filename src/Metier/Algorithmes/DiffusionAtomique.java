@@ -3,13 +3,16 @@ package Metier.Algorithmes;
 import Metier.Algorithmes.AlgoDiffusion;
 import Metier.GenerateurImpl;
 import Metier.ObservateurGenerateur;
+import Metier.ObservateurGenerateurAsync;
 
 import java.util.LinkedList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class DiffusionAtomique implements AlgoDiffusion {
 
     private GenerateurImpl generateur;
-    private LinkedList<ObservateurGenerateur> canaux;
+    private LinkedList<ObservateurGenerateurAsync> canaux;
 
     @Override
     public void configure(GenerateurImpl generateur) {
@@ -21,9 +24,16 @@ public class DiffusionAtomique implements AlgoDiffusion {
     public void execute() {
         this.canaux = generateur.getCanauxObservers();
         System.out.println("Diffusion execute ");
-        for (ObservateurGenerateur o : generateur.getCanauxObservers())
+        for (ObservateurGenerateurAsync o : generateur.getCanauxObservers())
         {
-            o.update(generateur);
+            Future<Void> future = o.update(generateur);
+            try {
+                future.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -31,7 +41,7 @@ public class DiffusionAtomique implements AlgoDiffusion {
         return canaux.isEmpty();
     }
 
-    public void removeCanaux(ObservateurGenerateur canal){
+    public void removeCanaux(ObservateurGenerateurAsync canal){
         this.canaux.remove(canal);
     }
 }

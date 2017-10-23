@@ -7,6 +7,6 @@ public interface Generateur extends Sujet {
 //
 //    //
 //    void detach();
-    String getValue(ObservateurGenerateur oAfficheur);
+    String getValue(ObservateurGenerateurAsync oAfficheur);
 
 }

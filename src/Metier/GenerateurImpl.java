@@ -19,7 +19,7 @@ public class GenerateurImpl implements Generateur {
     private boolean stop;
 
     // Liste des canaux (Observeur) Observe la modification du générateur
-    private List<ObservateurGenerateur> canauxObservers = new LinkedList<>();
+    private List<ObservateurGenerateurAsync> canauxObservers = new LinkedList<>();
 
     public GenerateurImpl(){}
     public GenerateurImpl(AlgoDiffusion algo){
@@ -31,22 +31,22 @@ public class GenerateurImpl implements Generateur {
     }
 
     @Override
-    public void attach(ObservateurGenerateur o) {
+    public void attach(ObservateurGenerateurAsync o) {
         this.canauxObservers.add(o);
     }
 
     @Override
-    public void detach(ObservateurGenerateur o) {
+    public void detach(ObservateurGenerateurAsync o) {
         this.canauxObservers.remove(o);
     }
 
     // Retourne une copie de la liste des cannaux
-    public LinkedList<ObservateurGenerateur> getCanauxObservers(){ return new LinkedList<>(this.canauxObservers); }
+    public LinkedList<ObservateurGenerateurAsync> getCanauxObservers(){ return new LinkedList<>(this.canauxObservers); }
 
     @Override
-    public String getValue(ObservateurGenerateur oCanal) {
+    public String getValue(ObservateurGenerateurAsync oCanal) {
 
-        // Diffusion atomique on supprime le canaux qui a lu
+        // Diffusion atomique on supprime le canal qui a lu
         if(algo instanceof DiffusionAtomique){
             ((DiffusionAtomique) algo).removeCanaux(oCanal);
             return Integer.toString(this.value);
@@ -63,6 +63,7 @@ public class GenerateurImpl implements Generateur {
             Date date = new Date();
             return this.value + "-" + date.getTime();
         }
+       // return "test";
     }
 
     public int getValue(){

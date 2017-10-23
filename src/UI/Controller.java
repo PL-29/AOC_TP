@@ -48,10 +48,12 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Création du générateur
+        GenerateurImpl generateur = new GenerateurImpl();
 
         // Création des canaux
-        Canal canal1 = new Canal();
-        Canal canal2 = new Canal();
+        Canal canal1 = new Canal(generateur);
+        Canal canal2 = new Canal(generateur);
 
         // Création des afficheurs
         Afficheur afficheur1 = new Afficheur();
@@ -60,8 +62,7 @@ public class Controller implements Initializable {
         canal1.attach(afficheur1);
         canal2.attach(afficheur2);
 
-        // Création du générateur
-        GenerateurImpl generateur = new GenerateurImpl();
+
 
         // ------------------ STOP ------------------
         boutonArreter.setOnAction(new EventHandler<ActionEvent>() {
