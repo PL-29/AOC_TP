@@ -4,13 +4,9 @@ import Metier.Algorithmes.AlgoDiffusion;
 import Metier.Algorithmes.DiffusionAtomique;
 import Metier.Algorithmes.DiffusionEpoque;
 import Metier.Algorithmes.DiffusionSequentielle;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-import org.omg.CORBA.TIMEOUT;
-
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -65,10 +61,13 @@ public class GenerateurImpl implements Generateur {
 
         // Diffusion Epoque
         else {
-            Date date = new Date();
-            return this.value + "-" + date.getTime();
+
+            String tag = "@" + LocalDateTime.now().getHour() + ":"
+                            + LocalDateTime.now().getMinute() + ":"
+                            + LocalDateTime.now().getSecond();
+
+            return this.value + tag;
         }
-       // return "test";
     }
 
     public int getValue(){
@@ -76,37 +75,31 @@ public class GenerateurImpl implements Generateur {
     }
 
     // Simule le changement de valeur
-    public void setValue(int value){
-        this.value = value;
+    public void setValue(){
+        this.value++;
         algo.execute();
     }
 
     public void start(){
         this.stop = false;
+        this.value = 0;
         algo.configure(this);
 
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-        scheduler.scheduleAtFixedRate(()-> {
-            for (int i = 0; i < 10 && !stop; i++) {
+            scheduler.scheduleAtFixedRate(()-> {
+
                 // DiffusionAtomique - Set value que si tout le monde a lu
                 if (algo instanceof DiffusionAtomique && ((DiffusionAtomique) algo).allReading()) {
-                    this.setValue(i);
+                    this.setValue();
                 }
 
                 // DiffusionSequentielle - On set la value tout le temps
                 if (algo instanceof DiffusionSequentielle || algo instanceof DiffusionEpoque) {
-                    this.setValue(i);
+                    this.setValue();
                 }
 
-                // Wait
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
-            }
-        }, 10,10, TimeUnit.SECONDS);
+            }, 1000,1000, TimeUnit.MILLISECONDS);
     }
 
     public void stop(){
