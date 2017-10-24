@@ -11,10 +11,11 @@ public class Canal implements ObservateurGenerateurAsync, GenerateurAsync{
     //Proxy
     private GenerateurImpl generateur;
 
-    private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(4);
+    private ScheduledExecutorService scheduler;
 
-    public Canal(GenerateurImpl generateur){
+    public Canal(GenerateurImpl generateur, ScheduledExecutorService scheduler){
         this.generateur = generateur;
+        this.scheduler = scheduler;
     }
 
     public Future<Void> update(Generateur generateur){
@@ -23,15 +24,15 @@ public class Canal implements ObservateurGenerateurAsync, GenerateurAsync{
         Callable methodeInvocation = new Update(observerAfficheur, this);
         // ExecutorService scheduler = Executors.newFixedThreadPool(1);
 
-        int delaiAleatoire = (int) Math.random() * 3000;
+        int delaiAleatoire = 2500 + (int)Math.random() * 3000;
         return this.scheduler.schedule(methodeInvocation, delaiAleatoire ,TimeUnit.MILLISECONDS);
     }
 
     public Future<String> getValue(){
 
         Callable methodeInvocation = new GetValue(this.generateur, this);
-        int delaiAleatoire = (int) Math.random() * 3000;
-        return scheduler.schedule(methodeInvocation,delaiAleatoire,TimeUnit.MILLISECONDS);
+        int delaiAleatoire = 2500 + (int) Math.random() * 3000;
+        return this.scheduler.schedule(methodeInvocation,delaiAleatoire,TimeUnit.MILLISECONDS);
         //return this.generateur.getValue(this);
     }
 

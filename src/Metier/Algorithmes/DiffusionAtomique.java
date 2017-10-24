@@ -22,26 +22,25 @@ public class DiffusionAtomique implements AlgoDiffusion {
 
     @Override
     public void execute() {
-        this.canaux = generateur.getCanauxObservers();
+        this.generateur.stop();
+        this.canaux = this.generateur.getCanauxObservers();
         System.out.println("Diffusion execute ");
-        for (ObservateurGenerateurAsync o : generateur.getCanauxObservers())
+        for (ObservateurGenerateurAsync o : this.canaux)
         {
-            Future<Void> future = o.update(generateur);
-            try {
-                future.get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
+            o.update(this.generateur);
         }
     }
 
-    public boolean allReading (){
-        return canaux.isEmpty();
+    @Override
+    public String gestionValue(ObservateurGenerateurAsync oCanal){
+        this.removeCanaux(oCanal);
+        if(this.canaux.isEmpty()){
+            this.generateur.start();
+        }
+        return this.generateur.getValue();
     }
 
-    public void removeCanaux(ObservateurGenerateurAsync canal){
+    private void removeCanaux(ObservateurGenerateurAsync canal){
         this.canaux.remove(canal);
     }
 }

@@ -4,6 +4,7 @@ import Metier.GenerateurImpl;
 import Metier.ObservateurGenerateur;
 import Metier.ObservateurGenerateurAsync;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -20,14 +21,16 @@ public class DiffusionEpoque implements AlgoDiffusion {
     public void execute() {
         for (ObservateurGenerateurAsync o : generateur.getCanauxObservers())
         {
-            Future<Void> future = o.update(generateur);
-            try {
-                future.get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
+            o.update(generateur);
         }
+    }
+
+    @Override
+    public String gestionValue(ObservateurGenerateurAsync oCanal) {
+        String tag = "@" + LocalDateTime.now().getHour() + ":"
+                + LocalDateTime.now().getMinute() + ":"
+                + LocalDateTime.now().getSecond();
+
+        return this.generateur.getValue() + tag;
     }
 }

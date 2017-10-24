@@ -14,6 +14,8 @@ import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class Controller implements Initializable {
 
@@ -49,14 +51,16 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(12);
+
         // Création du générateur
-        GenerateurImpl generateur = new GenerateurImpl();
+        GenerateurImpl generateur = new GenerateurImpl(scheduler);
 
         // Création des canaux
-        Canal canal1 = new Canal(generateur);
-        Canal canal2 = new Canal(generateur);
-        Canal canal3 = new Canal(generateur);
-        Canal canal4 = new Canal(generateur);
+        Canal canal1 = new Canal(generateur, scheduler);
+        Canal canal2 = new Canal(generateur, scheduler);
+        Canal canal3 = new Canal(generateur, scheduler);
+        Canal canal4 = new Canal(generateur, scheduler);
 
         // Création des afficheurs
         Afficheur aff1 = new Afficheur();
@@ -121,7 +125,7 @@ public class Controller implements Initializable {
                 generateur.setAlgo(algorithme);
 
                 System.out.println("Lancement de l'algorithme");
-                generateur.start();
+                generateur.lancement();
             }
         });
     }

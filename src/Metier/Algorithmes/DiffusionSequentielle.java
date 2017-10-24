@@ -14,7 +14,7 @@ public class DiffusionSequentielle implements AlgoDiffusion {
     private LinkedList<ObservateurGenerateurAsync> canaux;
 
     // Copie de la valeur
-    int value;
+    String copieValue;
 
     @Override
     public void configure(GenerateurImpl generateur) {
@@ -26,25 +26,24 @@ public class DiffusionSequentielle implements AlgoDiffusion {
     public void execute() {
         // Si la liste des canaux est vide - cad tout le monde a lu
         if(this.canaux.isEmpty()){
-            this.value = this.generateur.getValue();
+            this.copieValue = this.generateur.getValue();
 
             this.canaux = generateur.getCanauxObservers();
             for (ObservateurGenerateurAsync o : generateur.getCanauxObservers())
             {
-                Future<Void> future = o.update(generateur);
-                try {
-                    future.get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
+                o.update(generateur);
             }
         }
     }
 
-    public int getCopyValue(){
-        return this.value;
+    @Override
+    public String gestionValue(ObservateurGenerateurAsync oCanal){
+        this.removeCanaux(oCanal);
+        return this.getCopyValue();
+    }
+
+    public String getCopyValue(){
+        return this.copieValue;
     }
 
     public void removeCanaux(ObservateurGenerateurAsync canal){
