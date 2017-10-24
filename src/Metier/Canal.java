@@ -26,14 +26,14 @@ public class Canal implements ObservateurGenerateurAsync, GenerateurAsync{
 //        // TODO appeler la méthode update(subject:Generateur) de la classe Afficheur
 //        this.observerAfficheur.update(generateur);
         Callable methodeInvocation = new Update(observerAfficheur, this);
-       ExecutorService scheduler = Executors.newCachedThreadPool();
+       ExecutorService scheduler = Executors.newFixedThreadPool(1);
         return scheduler.submit(methodeInvocation);
     }
 
 
     public Future<String> getValue(){
         Callable methodeInvocation = new GetValue(this.generateur, this);
-        ExecutorService scheduler = Executors.newCachedThreadPool();
+        ExecutorService scheduler = Executors.newFixedThreadPool(1);
         //scheduler.schedule(methodeInvocation, 1000, TimeUnit.MILLISECONDS);
         Future<String> future = scheduler.submit(methodeInvocation);
         return future;

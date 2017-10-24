@@ -80,7 +80,7 @@ public class GenerateurImpl implements Generateur {
         this.stop = false;
         algo.configure(this);
 
-        for(int i = 0 ; i < 30 && !stop; i++){
+        for(int i = 0 ; i < 10 && !stop; i++){
             // DiffusionAtomique - Set value que si tout le monde a lu
             if(algo instanceof DiffusionAtomique && ((DiffusionAtomique) algo).allReading()){
                 this.setValue(i);

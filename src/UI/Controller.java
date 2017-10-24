@@ -5,6 +5,7 @@ import Metier.Algorithmes.AlgoDiffusion;
 import Metier.Algorithmes.DiffusionAtomique;
 import Metier.Algorithmes.DiffusionEpoque;
 import Metier.Algorithmes.DiffusionSequentielle;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -54,13 +55,31 @@ public class Controller implements Initializable {
         // Création des canaux
         Canal canal1 = new Canal(generateur);
         Canal canal2 = new Canal(generateur);
+        Canal canal3 = new Canal(generateur);
+        Canal canal4 = new Canal(generateur);
 
         // Création des afficheurs
-        Afficheur afficheur1 = new Afficheur();
-        Afficheur afficheur2 = new Afficheur();
+        Afficheur aff1 = new Afficheur();
+        this.afficheur1.textProperty().bind(aff1.getProperty());
 
-        canal1.attach(afficheur1);
-        canal2.attach(afficheur2);
+        Afficheur aff2 = new Afficheur();
+        this.afficheur2.textProperty().bind(aff2.getProperty());
+
+        Afficheur aff3 = new Afficheur();
+        this.afficheur3.textProperty().bind(aff3.getProperty());
+
+        Afficheur aff4 = new Afficheur();
+        this.afficheur4.textProperty().bind(aff4.getProperty());
+
+        canal1.attach(aff1);
+        canal2.attach(aff2);
+        canal3.attach(aff3);
+        canal4.attach(aff4);
+
+        generateur.attach(canal1);
+        generateur.attach(canal2);
+        generateur.attach(canal3);
+        generateur.attach(canal4);
 
 
 
@@ -102,9 +121,6 @@ public class Controller implements Initializable {
                 }
 
                 generateur.setAlgo(algorithme);
-
-                generateur.attach(canal1);
-                generateur.attach(canal2);
 
                 System.out.println("Lancement de l'algorithme");
                 generateur.start();
