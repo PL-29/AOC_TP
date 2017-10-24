@@ -90,6 +90,9 @@ public class Controller implements Initializable {
             @Override public void handle(ActionEvent e) {
                 System.out.println("Algorithme arrêté");
                 generateur.stop();
+                radioBtnSequentielle.setDisable(false);
+                radioBtnDiffusion.setDisable(false);
+                radioBtnEpoque.setDisable(false);
             }
         });
 

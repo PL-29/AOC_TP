@@ -24,14 +24,14 @@ public class Canal implements ObservateurGenerateurAsync, GenerateurAsync{
         Callable methodeInvocation = new Update(observerAfficheur, this);
         // ExecutorService scheduler = Executors.newFixedThreadPool(1);
 
-        int delaiAleatoire = 2500 + (int)Math.random() * 3000;
+        int delaiAleatoire = 900 + (int)Math.random() * 1500;
         return this.scheduler.schedule(methodeInvocation, delaiAleatoire ,TimeUnit.MILLISECONDS);
     }
 
     public Future<String> getValue(){
 
         Callable methodeInvocation = new GetValue(this.generateur, this);
-        int delaiAleatoire = 2500 + (int) Math.random() * 3000;
+        int delaiAleatoire = 900 + (int) Math.random() * 1500;
         return this.scheduler.schedule(methodeInvocation,delaiAleatoire,TimeUnit.MILLISECONDS);
         //return this.generateur.getValue(this);
     }

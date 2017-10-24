@@ -5,6 +5,8 @@ import javafx.beans.property.StringProperty;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Afficheur implements ObservateurGenerateur{
 
@@ -20,7 +22,7 @@ public class Afficheur implements ObservateurGenerateur{
         Future<String> future = canalGenerateur.getValue();
         try {
             this.value.set(future.get());
-            System.out.println("Afficheur " + value);
+            Logger.getGlobal().info("Afficheur " + value);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
