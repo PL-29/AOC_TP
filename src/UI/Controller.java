@@ -81,8 +81,6 @@ public class Controller implements Initializable {
         generateur.attach(canal3);
         generateur.attach(canal4);
 
-
-
         // ------------------ STOP ------------------
         boutonArreter.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {

@@ -5,10 +5,15 @@ import Metier.Algorithmes.DiffusionAtomique;
 import Metier.Algorithmes.DiffusionEpoque;
 import Metier.Algorithmes.DiffusionSequentielle;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import org.omg.CORBA.TIMEOUT;
 
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class GenerateurImpl implements Generateur {
 
@@ -80,21 +85,28 @@ public class GenerateurImpl implements Generateur {
         this.stop = false;
         algo.configure(this);
 
-        for(int i = 0 ; i < 10 && !stop; i++){
-            // DiffusionAtomique - Set value que si tout le monde a lu
-            if(algo instanceof DiffusionAtomique && ((DiffusionAtomique) algo).allReading()){
-                this.setValue(i);
-            }
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-            // DiffusionSequentielle - On set la value tout le temps
-            if(algo instanceof DiffusionSequentielle || algo instanceof DiffusionEpoque){
-                this.setValue(i);
-            }
+        scheduler.scheduleAtFixedRate(()-> {
+            for (int i = 0; i < 10 && !stop; i++) {
+                // DiffusionAtomique - Set value que si tout le monde a lu
+                if (algo instanceof DiffusionAtomique && ((DiffusionAtomique) algo).allReading()) {
+                    this.setValue(i);
+                }
 
-            // Wait
-            try { Thread.sleep(1000); }
-            catch(InterruptedException ex) { Thread.currentThread().interrupt(); }
-        }
+                // DiffusionSequentielle - On set la value tout le temps
+                if (algo instanceof DiffusionSequentielle || algo instanceof DiffusionEpoque) {
+                    this.setValue(i);
+                }
+
+                // Wait
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        }, 10,10, TimeUnit.SECONDS);
     }
 
     public void stop(){

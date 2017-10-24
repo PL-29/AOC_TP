@@ -1,11 +1,9 @@
 package Metier;
 
+import java.util.Random;
 import java.util.concurrent.*;
 
 public class Canal implements ObservateurGenerateurAsync, GenerateurAsync{
-
-    // Proxy
-    // private Afficheur afficheur;
 
     // Afficheur
     private ObservateurGenerateur observerAfficheur;
@@ -13,30 +11,27 @@ public class Canal implements ObservateurGenerateurAsync, GenerateurAsync{
     //Proxy
     private GenerateurImpl generateur;
 
+    private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(4);
 
     public Canal(GenerateurImpl generateur){
         this.generateur = generateur;
     }
 
     public Future<Void> update(Generateur generateur){
-//        System.out.println("Canal update");
-//        // TODO spécification
-//        this.generateur = (GenerateurImpl) generateur;
-//
-//        // TODO appeler la méthode update(subject:Generateur) de la classe Afficheur
-//        this.observerAfficheur.update(generateur);
+
+        // this.observerAfficheur.update(generateur);
         Callable methodeInvocation = new Update(observerAfficheur, this);
-       ExecutorService scheduler = Executors.newFixedThreadPool(1);
-        return scheduler.submit(methodeInvocation);
+        // ExecutorService scheduler = Executors.newFixedThreadPool(1);
+
+        int delaiAleatoire = (int) Math.random() * 5;
+        return this.scheduler.schedule(methodeInvocation, delaiAleatoire ,TimeUnit.SECONDS);
     }
 
-
     public Future<String> getValue(){
+
         Callable methodeInvocation = new GetValue(this.generateur, this);
-        ExecutorService scheduler = Executors.newFixedThreadPool(1);
-        //scheduler.schedule(methodeInvocation, 1000, TimeUnit.MILLISECONDS);
-        Future<String> future = scheduler.submit(methodeInvocation);
-        return future;
+        int delaiAleatoire = (int) Math.random() * 5;
+        return scheduler.schedule(methodeInvocation,delaiAleatoire,TimeUnit.SECONDS);
         //return this.generateur.getValue(this);
     }
 
