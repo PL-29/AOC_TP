@@ -1,17 +1,27 @@
 package Metier.Algorithmes;
 
-import Metier.Algorithmes.AlgoDiffusion;
 import Metier.GenerateurImpl;
-import Metier.ObservateurGenerateur;
 import Metier.ObservateurGenerateurAsync;
-
 import java.util.LinkedList;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
+/**
+ * Cette classe permet de générer un algorithme de diffusion atomique.
+ * Cet algorithme simule le problème de lecteurs-rédacteur.
+ *
+ * @author Pierre-Louis OLLIVIER
+ * @author Elina LEPETIT
+ * @version 1
+ */
 public class DiffusionAtomique implements AlgoDiffusion {
 
+    /**
+     *
+     */
     private GenerateurImpl generateur;
+
+    /**
+     *
+     */
     private LinkedList<ObservateurGenerateurAsync> canaux;
 
     @Override

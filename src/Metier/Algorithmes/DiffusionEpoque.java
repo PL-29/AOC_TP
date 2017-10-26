@@ -1,12 +1,9 @@
 package Metier.Algorithmes;
 
 import Metier.GenerateurImpl;
-import Metier.ObservateurGenerateur;
 import Metier.ObservateurGenerateurAsync;
 
 import java.time.LocalDateTime;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 public class DiffusionEpoque implements AlgoDiffusion {
 

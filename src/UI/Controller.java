@@ -5,7 +5,6 @@ import Metier.Algorithmes.AlgoDiffusion;
 import Metier.Algorithmes.DiffusionAtomique;
 import Metier.Algorithmes.DiffusionEpoque;
 import Metier.Algorithmes.DiffusionSequentielle;
-import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

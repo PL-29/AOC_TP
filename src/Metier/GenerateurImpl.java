@@ -1,13 +1,8 @@
 package Metier;
 
 import Metier.Algorithmes.AlgoDiffusion;
-import Metier.Algorithmes.DiffusionAtomique;
-import Metier.Algorithmes.DiffusionEpoque;
-import Metier.Algorithmes.DiffusionSequentielle;
-import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 

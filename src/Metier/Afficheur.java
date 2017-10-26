@@ -17,8 +17,6 @@ public class Afficheur implements ObservateurGenerateur{
     }
 
     public void update(GenerateurAsync canalGenerateur){
-
-        //TODO: Demander comment virer le this, inutile ici
         Future<String> future = canalGenerateur.getValue();
         try {
             this.value.set(future.get());
