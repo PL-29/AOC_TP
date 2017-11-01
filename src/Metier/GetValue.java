@@ -2,6 +2,7 @@ package Metier;
 
 import java.util.concurrent.Callable;
 
+
 public class GetValue implements Callable {
     private GenerateurImpl generateur;
     private ObservateurGenerateurAsync canal;
@@ -11,6 +12,10 @@ public class GetValue implements Callable {
         this.canal = canal;
     }
 
+    /**
+     *
+     * @return
+     */
     public String call() {
         String value = this.generateur.getValue(this.canal);
         return value;

@@ -2,12 +2,13 @@ package Metier;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Joue le rôle de model dans MVC avec l'interface utilisateur
+ */
 public class Afficheur implements ObservateurGenerateur{
 
     private StringProperty value;

@@ -16,6 +16,14 @@ import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
+/**
+ * La classe controller implémente l'interface Initializable de javafx.
+ * Elle joue le rôle de controlleur dans modèle-vue-controlleur (MVC),
+ * c'est-à-dire qu'elle connecte les élements de la vue avec ceux du modèle.
+ * Les differentes actions de la vue sont gérées ici.
+ *
+ * @see Initializable
+ */
 public class Controller implements Initializable {
 
     @FXML
@@ -48,6 +56,15 @@ public class Controller implements Initializable {
     @FXML
     private RadioButton radioBtnEpoque;
 
+    /**
+     * Instanciation du générateur, des 4 canaux, 4 afficheurs.
+     * Gestion des actions sur le boutons démarrer (définiton de l'algorithme) et arreter.
+     *
+     * @see Initializable#initialize(URL, ResourceBundle)
+     *
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(12);
@@ -62,6 +79,7 @@ public class Controller implements Initializable {
         Canal canal4 = new Canal(generateur, scheduler);
 
         // Création des afficheurs
+        // Liaison entre la vue et le modèle
         Afficheur aff1 = new Afficheur();
         this.afficheur1.textProperty().bind(aff1.getProperty());
 
@@ -87,7 +105,6 @@ public class Controller implements Initializable {
         // ------------------ STOP ------------------
         boutonArreter.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                System.out.println("Algorithme arrêté");
                 generateur.stop();
                 radioBtnSequentielle.setDisable(false);
                 radioBtnDiffusion.setDisable(false);
@@ -125,8 +142,6 @@ public class Controller implements Initializable {
                 }
 
                 generateur.setAlgo(algorithme);
-
-                System.out.println("Lancement de l'algorithme");
                 generateur.lancement();
             }
         });
