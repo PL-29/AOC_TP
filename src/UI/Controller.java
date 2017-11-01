@@ -25,16 +25,16 @@ public class Controller implements Initializable {
     private Button boutonArreter;
 
     @FXML
-    private TextArea afficheur1;
+    private TextField afficheur1;
 
     @FXML
-    private TextArea afficheur2;
+    private TextField afficheur2;
 
     @FXML
-    private TextArea afficheur3;
+    private TextField afficheur3;
 
     @FXML
-    private TextArea afficheur4;
+    private TextField afficheur4;
 
     @FXML
     private ToggleGroup choixAlgorithme;
