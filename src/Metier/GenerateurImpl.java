@@ -42,7 +42,7 @@ public class GenerateurImpl implements Generateur {
 
     @Override
     public String getValue(ObservateurGenerateurAsync oCanal) {
-        return algo.gestionValue(oCanal);
+        return algo.getValue(oCanal);
     }
 
     public String getValue(){
