@@ -4,12 +4,12 @@ import java.util.concurrent.Callable;
 
 
 public class GetValue implements Callable {
-    private GenerateurImpl generateur;
+    private Generateur generateurImpl;
     private ObservateurGenerateurAsync canal;
 
-    public GetValue(GenerateurImpl generateur, ObservateurGenerateurAsync canal){
-        this.generateur = generateur;
+    public GetValue(ObservateurGenerateurAsync canal, Generateur generateurImpl){
         this.canal = canal;
+        this.generateurImpl = generateurImpl;
     }
 
     /**
@@ -17,7 +17,7 @@ public class GetValue implements Callable {
      * @return
      */
     public String call() {
-        String value = this.generateur.getValue(this.canal);
+        String value = this.generateurImpl.getValue(this.canal);
         return value;
     }
 }

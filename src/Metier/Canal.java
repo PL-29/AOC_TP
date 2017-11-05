@@ -5,42 +5,39 @@ import java.util.concurrent.*;
 
 public class Canal implements ObservateurGenerateurAsync, GenerateurAsync{
 
-    // Afficheur
-    private ObservateurGenerateur observerAfficheur;
+    // Attribut présent pour représenter le patron de conception proxy1
+    private ObservateurGenerateur observateurAfficheur;
 
-    //Proxy
-    private GenerateurImpl generateur;
+    // Attribut présent pour représenter le patron de conception proxy2
+    private Generateur generateurImpl;
 
+    // Dans le bus d'avoir un scheduler centraliser dans le main
     private ScheduledExecutorService scheduler;
 
     public Canal(GenerateurImpl generateur, ScheduledExecutorService scheduler){
-        this.generateur = generateur;
+        this.generateurImpl = generateur;
         this.scheduler = scheduler;
     }
 
     public Future<Void> update(Generateur generateur){
 
-        // this.observerAfficheur.update(generateur);
-        Callable methodeInvocation = new Update(observerAfficheur, this);
-        // ExecutorService scheduler = Executors.newFixedThreadPool(1);
-
+        Callable methodeInvocation = new Update(observateurAfficheur, this);
         int delaiAleatoire = 900 + (int)Math.random() * 1500;
         return this.scheduler.schedule(methodeInvocation, delaiAleatoire ,TimeUnit.MILLISECONDS);
     }
 
     public Future<String> getValue(){
 
-        Callable methodeInvocation = new GetValue(this.generateur, this);
+        Callable methodeInvocation = new GetValue(this, this.generateurImpl);
         int delaiAleatoire = 900 + (int) Math.random() * 1500;
         return this.scheduler.schedule(methodeInvocation,delaiAleatoire,TimeUnit.MILLISECONDS);
-        //return this.generateur.getValue(this);
     }
 
     public void attach(ObservateurGenerateur o){
-        this.observerAfficheur = o;
+        this.observateurAfficheur = o;
     }
 
     public void detach(ObservateurGenerateur o){
-        this.observerAfficheur = null;
+        this.observateurAfficheur = null;
     }
 }
