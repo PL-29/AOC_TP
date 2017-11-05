@@ -1,6 +1,5 @@
 package Metier;
 
-import java.util.Random;
 import java.util.concurrent.*;
 
 public class Canal implements ObservateurGenerateurAsync, GenerateurAsync{

@@ -1,5 +1,5 @@
 package Metier;
 
 public interface ObservateurGenerateur {
-    void update(GenerateurAsync subject);
+    void update(GenerateurAsync sujet);
 }
