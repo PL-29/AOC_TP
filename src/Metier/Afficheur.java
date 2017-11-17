@@ -7,16 +7,38 @@ import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
 /**
- * Joue le rôle de model dans MVC avec l'interface utilisateur
+ * La classe Afficheur permet l'affichage de valeur.
+ * Cette classe joue le rôle de lecteur dans le problème de lecteur-rédacteur.
+ * L'affiche a également le rôle de Model dans le patron de conception MVC (où la View est l'interface utilisateur).
+ * Afficheur implemente ObservateurGenerateur, la classe est donc un observateur.
+ *
+ *
+ * @see ObservateurGenerateur
+ *1
+ * @author Pierre-Louis Ollivier
+ * @author Elina Lepetit
+ * @version 1.0
+ *
  */
 public class Afficheur implements ObservateurGenerateur{
 
+    /**
+     * La valeur qui sera lue par l'Afficheur
+     */
     private StringProperty value;
 
+    /**
+     * Constructeur Afficheur
+     */
     public Afficheur(){
         this.value = new SimpleStringProperty();
     }
 
+    /**
+     * @see ObservateurGenerateur#update(GenerateurAsync)
+     * @param canalGenerateur
+     */
+    @Override
     public void update(GenerateurAsync canalGenerateur){
         Future<String> future = canalGenerateur.getValue();
         try {
@@ -29,8 +51,10 @@ public class Afficheur implements ObservateurGenerateur{
         }
     }
 
+    /**
+     * @return la valeur sous la forme d'un objet de type StringProperty
+     */
     public StringProperty getProperty(){
         return this.value;
-
     }
 }

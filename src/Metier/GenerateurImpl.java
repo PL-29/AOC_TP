@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * La classe GenerateurImpl permet la génération de valeur.
  * La génération choisie est celle de l'incrémentation de la valeur.
- * GenerateurImpl implement Generateur et implicitement sujet, la classe est donc un observable.
+ * GenerateurImpl implemente Generateur et implicitement sujet, la classe est donc un observable.
  *
  *
  * @see Sujet
