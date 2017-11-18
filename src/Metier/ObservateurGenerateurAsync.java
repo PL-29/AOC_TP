@@ -17,5 +17,5 @@ public interface ObservateurGenerateurAsync {
      * Méthode permettant d'être notifié de manière asynchrone du changement d'état de la classe observée
      * @return
      */
-    Future<Void> update();
+    Future<Void> update(Generateur generateur);
 }

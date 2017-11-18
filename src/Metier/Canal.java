@@ -44,11 +44,11 @@ public class Canal implements ObservateurGenerateurAsync, GenerateurAsync {
     }
 
     /**
-     * @see ObservateurGenerateurAsync#update()
+     * @see ObservateurGenerateurAsync#update(Generateur generateur)
      * @return un future de type void. (Il n'est pas utilisé par la suite)
      */
     @Override
-    public Future<Void> update(){
+    public Future<Void> update(Generateur generateur){
 
         Callable methodeInvocation = new Update(observateurAfficheur, this);
         int delaiAleatoire = 900 + (int)Math.random() * 1500;
