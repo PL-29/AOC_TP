@@ -35,8 +35,8 @@ public class Canal implements ObservateurGenerateurAsync, GenerateurAsync {
 
     /**
      * Constructeur Canal
-     * @param generateur
-     * @param scheduler
+     * @param generateur Le generateur
+     * @param scheduler Le scheduler
      */
     public Canal(GenerateurImpl generateur, ScheduledExecutorService scheduler){
         this.generateurImpl = generateur;
@@ -70,7 +70,7 @@ public class Canal implements ObservateurGenerateurAsync, GenerateurAsync {
     /**
      * Instancie l'attribut observateurAfficheur qui observe la classe canal grâce à l'objet passé en paramètre.
      * Cet attribut correspond à un afficheur.
-     * @param o
+     * @param o L'afficheur
      */
     public void attach(ObservateurGenerateur o){
         this.observateurAfficheur = o;
@@ -78,7 +78,7 @@ public class Canal implements ObservateurGenerateurAsync, GenerateurAsync {
 
     /**
      * Met à null l'attribut observateurAfficheur qui observe la classe canal.
-     * @param o
+     * @param o L'afficheur
      */
     public void detach(ObservateurGenerateur o){
         this.observateurAfficheur = null;

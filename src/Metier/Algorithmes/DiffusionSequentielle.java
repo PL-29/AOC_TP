@@ -73,7 +73,7 @@ public class DiffusionSequentielle implements AlgoDiffusion {
 
     /**
      * @see AlgoDiffusion#getValue(ObservateurGenerateurAsync)
-     * @param oCanal
+     * @param oCanal Le canal qui a fait l'appel à getValue du générateur
      * @return la copie de la valeur du générateur sous la forme d'une chaine de caractère.
      */
     @Override

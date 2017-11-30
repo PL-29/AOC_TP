@@ -28,8 +28,8 @@ public class Update implements Callable{
 
     /**
      * Constructeur Update
-     * @param observateurAfficheur
-     * @param canal
+     * @param observateurAfficheur L'afficheur
+     * @param canal Le canal
      */
     public Update(ObservateurGenerateur observateurAfficheur, GenerateurAsync canal){
         this.observateurAfficheur = observateurAfficheur;

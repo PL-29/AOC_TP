@@ -36,7 +36,7 @@ public class DiffusionAtomique implements AlgoDiffusion {
 
     /**
      * @see AlgoDiffusion#configure(GenerateurImpl)
-     * @param generateur
+     * @param generateur Le générateur associé
      * Dans le cas de diffusion atomique, lors de l'appel à configure,
      * l'algorithme initialise une liste (LinkedList) d'ObservateurGenerateurAsync
      */
@@ -65,7 +65,7 @@ public class DiffusionAtomique implements AlgoDiffusion {
     /**
      * @see AlgoDiffusion#getValue(ObservateurGenerateurAsync)
      * Si la liste des canaux est vide le générateur redemarre afin de crée une nouvelle valeur.
-     * @param oCanal
+     * @param oCanal Le canal qui à fait l'appel à getValue du générateur
      * @return la valeur du générateur sous la forme d'une chaine de caractère.
      */
     @Override

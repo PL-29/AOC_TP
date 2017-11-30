@@ -29,7 +29,7 @@ public class DiffusionEpoque implements AlgoDiffusion {
 
     /**
      * @see AlgoDiffusion#configure(GenerateurImpl)
-     * @param generateur
+     * @param generateur Le générateur associé
      */
     @Override
     public void configure(GenerateurImpl generateur) {
@@ -50,7 +50,7 @@ public class DiffusionEpoque implements AlgoDiffusion {
     /**
      * @see AlgoDiffusion#getValue(ObservateurGenerateurAsync)
      * Rajoute à la valeur créée par le générateur un tag sous la forme : @hh:mm:ss
-     * @param oCanal
+     * @param oCanal Le canal qui a fait l'appel à getValue du générateur
      * @return la valeur du générateur modifiée par l'algo sous la forme d'une chaine de caractère.
      */
     @Override

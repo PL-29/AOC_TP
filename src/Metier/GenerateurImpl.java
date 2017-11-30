@@ -51,7 +51,7 @@ public class GenerateurImpl implements Generateur {
     /**
      * Constructeur GenerateurImpl.
      *
-     * @param scheduler
+     * @param scheduler Le scheduler
      */
     public GenerateurImpl(ScheduledExecutorService scheduler){
         this.scheduler = scheduler;
@@ -59,7 +59,7 @@ public class GenerateurImpl implements Generateur {
 
     /**
      * Met à jour l'algorithme choisi pour le générateur de valeur
-     * @param algo, le nouvel algorithme
+     * @param algo Le nouvel algorithme
      */
     public void setAlgo(AlgoDiffusion algo) {
         this.algo = algo;
@@ -67,7 +67,7 @@ public class GenerateurImpl implements Generateur {
 
     /**
      * @see Sujet#attach(ObservateurGenerateurAsync)
-     * @param observateur
+     * @param observateur Le canal
      */
     @Override
     public void attach(ObservateurGenerateurAsync observateur) {
@@ -76,7 +76,7 @@ public class GenerateurImpl implements Generateur {
 
     /**
      * @see Sujet#detach(ObservateurGenerateurAsync)
-     * @param observateur
+     * @param observateur Le canal
      */
     @Override
     public void detach(ObservateurGenerateurAsync observateur) {
@@ -93,7 +93,7 @@ public class GenerateurImpl implements Generateur {
 
     /**
      * @see Generateur#getValue(ObservateurGenerateurAsync)
-     * @param oCanal
+     * @param oCanal Le canal
      * @return la valeur du générateur traitée par l'algorithme
      */
     @Override

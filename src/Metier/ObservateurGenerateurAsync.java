@@ -15,7 +15,8 @@ import java.util.concurrent.Future;
 public interface ObservateurGenerateurAsync {
     /**
      * Méthode permettant d'être notifié de manière asynchrone du changement d'état de la classe observée
-     * @return
+     * @param generateur Le générateur
+     * @return une future vide
      */
     Future<Void> update(Generateur generateur);
 }

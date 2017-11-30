@@ -15,7 +15,7 @@ public interface Generateur extends Sujet {
     /**
      * Retourne la valeur sous la forme d'une chaine de caractères
      * L'observateurGenerateur qui fait appel à getValue est passé en paramètre
-     * @param observateurGenerateur
+     * @param observateurGenerateur Le canal
      * @return value
      */
     String getValue(ObservateurGenerateurAsync observateurGenerateur);

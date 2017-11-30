@@ -28,8 +28,8 @@ public class GetValue implements Callable {
 
     /**
      * Constructeur GetValue
-     * @param canal
-     * @param generateurImpl
+     * @param canal Le canal
+     * @param generateurImpl Le générateur
      */
     public GetValue(ObservateurGenerateurAsync canal, Generateur generateurImpl){
         this.canal = canal;

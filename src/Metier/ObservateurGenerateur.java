@@ -13,7 +13,7 @@ package Metier;
 public interface ObservateurGenerateur {
     /**
      * Méthode permettant d'être notifié du changement d'état du sujet passé en paramètre
-     * @param sujet
+     * @param sujet Le sujet de type GenerateurAsync
      */
     void update(GenerateurAsync sujet);
 }

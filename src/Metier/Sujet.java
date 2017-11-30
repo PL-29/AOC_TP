@@ -16,13 +16,13 @@ public interface Sujet {
 
     /**
      * Ajoute l'observateur passé en paramètre à la liste des observateurs
-     * @param o
+     * @param o L'observareur générateur async
      */
     void attach(ObservateurGenerateurAsync o);
 
     /**
      * Supprime l'observateur passé en paramètre de la liste des observateurs
-     * @param o
+     * @param o L'observareur générateur async
      */
     void detach(ObservateurGenerateurAsync o);
 
