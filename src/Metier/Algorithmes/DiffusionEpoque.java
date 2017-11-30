@@ -2,7 +2,10 @@ package Metier.Algorithmes;
 
 import Metier.GenerateurImpl;
 import Metier.ObservateurGenerateurAsync;
+
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * DiffusionEpoque est l'implémentation de l'interface AlgoDiffusion.
@@ -55,10 +58,8 @@ public class DiffusionEpoque implements AlgoDiffusion {
      */
     @Override
     public String getValue(ObservateurGenerateurAsync oCanal) {
-        String tag = "@" + LocalDateTime.now().getHour() + ":"
-                + LocalDateTime.now().getMinute() + ":"
-                + LocalDateTime.now().getSecond();
 
+        String tag =  "@" + new SimpleDateFormat("HH:mm:ss").format(new Date());
         return this.generateur.getValue() + tag;
     }
 }
