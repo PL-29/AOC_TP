@@ -67,7 +67,7 @@ public class Controller implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(12);
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(32);
 
         // Création du générateur
         GenerateurImpl generateur = new GenerateurImpl(scheduler);
@@ -129,16 +129,13 @@ public class Controller implements Initializable {
                 switch (selectedRadioButtonID){
                     case "radioBtnSequentielle" :
                         algorithme = new DiffusionSequentielle();
-                        System.out.println("radioBtnSequentielle");
                         break;
                     case "radioBtnEpoque" :
                         algorithme = new DiffusionEpoque();
-                        System.out.println("radioBtnEpoque");
                         break;
                     case "radioBtnDiffusion" :
                     default:
                         algorithme = new DiffusionAtomique();
-                        System.out.println("radioBtnDiffusion");
                 }
 
                 generateur.setAlgo(algorithme);
